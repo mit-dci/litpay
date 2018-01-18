@@ -26,6 +26,21 @@ router.get('/', auth, authUser, function(req, res) {
     });
 });
 
+// Gets info about a specific channel
+router.get('/:channel_id', auth, authUser, function(req, res) {
+    Channel.findOne({'user': req.params.user_id, '_id': req.params.channel_id}, function(err, channel) {
+        if(err) {
+            return res.json({success: false,
+                             message: err
+                            });
+        }
+        
+        return res.json({success: true,
+                         channel: channel
+                        });
+    });
+});
+
 // Creates a new channel open request
 router.post('/', auth, authUser, function(req, res) {    
     req.getValidationResult().then(function(errors) {
@@ -72,9 +87,7 @@ router.post('/', auth, authUser, function(req, res) {
                     fundData: channels[0].fundData
                 });
             }
-        });
-        
-        
+        });        
     });
 });
 

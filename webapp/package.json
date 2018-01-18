@@ -9,6 +9,7 @@
         "method-override": "latest",
         "morgan": "latest",
         "jsonwebtoken": "latest",
-        "bcrypt": "latest"
+        "bcrypt": "latest",
+        "crypto-js": "latest"
     }
 }

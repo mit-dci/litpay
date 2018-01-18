@@ -8,6 +8,10 @@ var authUser = require('../middleware/authUser');
 
 var User = require('../models/user');
 
+var channels = require('./channels');
+
+router.use('/:user_id/channels', channels);
+
 router.get('/', auth, function(req, res) {
     User.find({}, function(err, users){
         res.json(users);

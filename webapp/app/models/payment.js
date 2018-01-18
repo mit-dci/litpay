@@ -25,11 +25,13 @@ module.exports = mongoose.model('Payment', new Schema({
     from: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User',
-        required: true
+        required: true,
+        index: true
     },
     to: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User',
-        required: true
+        required: true,
+        index: true
     }
 });

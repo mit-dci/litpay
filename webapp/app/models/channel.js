@@ -35,7 +35,8 @@ module.exports = mongoose.model('Channel', new Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User',
-        required: true
+        required: true,
+        index: true
     },
     transactions: [Schema({
         id: {
@@ -52,4 +53,4 @@ module.exports = mongoose.model('Channel', new Schema({
             min: 0
         }
     })]
-});
+}));

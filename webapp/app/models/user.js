@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-
 module.exports = mongoose.model('User', new Schema({
     name: {
         type: String,
@@ -18,5 +17,17 @@ module.exports = mongoose.model('User', new Schema({
         type: Boolean,
         required: true,
         default: false
-    }
+    },
+    payable: [{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Payment'
+    }],
+    receivable: [{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Payment'
+    }],
+    channels: [{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Channel'
+    }]
 }));

@@ -36,5 +36,20 @@ module.exports = mongoose.model('Channel', new Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User',
         required: true
-    }
+    },
+    transactions: [Schema({
+        id: {
+            type: String,
+            required: true
+        },
+        delta: {
+            type: Number,
+            required: true
+        },
+        idx: {
+            type: Number,
+            required: true,
+            min: 0
+        }
+    })]
 });

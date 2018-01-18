@@ -8,7 +8,6 @@
         "angular": "latest",
         "angular-route": "latest",
         "angular-cookies": "latest",
-        "crypto-js": "latest",
+        "crypto-js": "latest"
     }
 }
- 

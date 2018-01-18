@@ -4,7 +4,7 @@ angular.module('AuthService', [])
     return {
         // automatically attach Authorization header
         request: function(config) {
-            var token = auth.getToken();
+            var token = auth.getRawToken();
             if(config.url.indexOf(API) === 0 && token) {
                 config.headers['x-access-token'] = token;
             }
@@ -12,21 +12,21 @@ angular.module('AuthService', [])
         },
 
         response: function(res) {
-          if(res.config.url.indexOf(API) === 0 && res.data.token) {
-              auth.saveToken(res.data.token);
-          }
+            if(res.config.url.indexOf(API) === 0 && res.data.token) {
+                auth.saveToken(res.data.token);
+            }
 
-          return res;
+            return res;
         },
         
         responseError: function(res) {
             if(res.status == 401) {
                 if(auth.isAuthed()) {
                     // Disallowed resource
-                    $location.url('/');
+                    $location.path('/');
                 } else {
                     // Token expired/logged out
-                    $location.url('/login');
+                    $location.path('/login');
                 }
                 return;
             }
@@ -36,7 +36,7 @@ angular.module('AuthService', [])
     }
 })
 
-.service('auth', function($window) {
+.service('auth', function($window, $location, $cookies) {
     this.parseJwt = function(token) {
         var base64Url = token.split('.')[1];
         var base64 = base64Url.replace('-', '+').replace('_', '/');
@@ -44,19 +44,27 @@ angular.module('AuthService', [])
     };
 
     this.saveToken = function(token) {
-        $window.localStorage['jwtToken'] = token
+        var expiry = new Date();
+        expiry.setDate(expiry.getDate() + (1.0/48));
+        $cookies.put('jwtToken', token, {expires: expiry});
     };
 
-    this.logout = function(token) {
-        $window.localStorage.removeItem('jwtToken');
+    this.logout = function() {
+        $cookies.remove('jwtToken');
+        $cookies.remove('password');
+        $location.path("/");
     };
 
+    this.getRawToken = function() {
+        return $cookies.get('jwtToken');
+    };
+    
     this.getToken = function() {
-        return $window.localStorage['jwtToken'];
-    };
+        return this.parseJwt(this.getRawToken());
+    }; 
 
     this.isAuthed = function() {
-        var token = this.getToken();
+        var token = this.getRawToken();
         if(token) {
             var params = this.parseJwt(token);
             return Math.round(new Date().getTime() / 1000) <= params.exp;
@@ -70,5 +78,5 @@ angular.module('AuthService', [])
     $httpProvider.interceptors.push('authInterceptor');
 })
 
-.constant('API', '//localhost/api');
+.constant('API', '/api');
 

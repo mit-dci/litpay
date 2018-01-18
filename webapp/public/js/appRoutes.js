@@ -9,9 +9,14 @@ function($routeProvider, $locationProvider) {
             controller: 'MainController'
         })
 
-        .when('/users', {
+        .when('/users/:user_id', {
             templateUrl: 'views/user.html',
             controller: 'UserController'
+        })
+        
+        .when('/login', {
+            templateUrl: 'views/login.html',
+            controller: 'LoginController'
         });
 
     $locationProvider.html5Mode(true);

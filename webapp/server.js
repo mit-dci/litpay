@@ -2,6 +2,7 @@
 
 // modules =================================================
 var express        = require('express');
+var validator      = require('express-validator');
 var app            = express();
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
@@ -18,6 +19,7 @@ var port = process.env.PORT || 8080;
 
 // connect to our mongoDB database 
 // (uncomment after you enter in your own credentials in config/db.js)
+mongoose.Promise = global.Promise;
 mongoose.connect(config.database); 
 
 app.set('superSecret', config.secret);
@@ -31,6 +33,8 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true })); 
+
+app.use(validator([]));
 
 // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(methodOverride('X-HTTP-Method-Override')); 
@@ -49,6 +53,7 @@ var www = require('./app/controllers/www');
 app.use('/api/users', users);
 app.use('/api', root);
 app.use('/', www);
+
 
 // start app ===============================================
 // startup our app at http://localhost:8080

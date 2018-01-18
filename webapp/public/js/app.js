@@ -1,2 +1,2 @@
-angular.module('sampleApp', ['ngRoute', 'appRoutes', 'MainCtrl', 'UserCtrl', 'UserService', 
-                             'AuthService']);
+angular.module('litpay', ['ngRoute', 'ngCookies', 'appRoutes', 'MainCtrl', 
+                             'UserCtrl', 'UserService', 'AuthService']);

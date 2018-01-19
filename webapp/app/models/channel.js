@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-module.exports = mongoose.model('Channel', new Schema({
+module.exports = {
     pkh: {
         type: String
     },
@@ -53,4 +53,4 @@ module.exports = mongoose.model('Channel', new Schema({
             min: 0
         }
     })]
-}));
+};

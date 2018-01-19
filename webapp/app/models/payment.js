@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 
-module.exports = mongoose.model('Payment', new Schema({
+module.exports = {
     id: {
         type: String,
         required: true
@@ -34,4 +33,4 @@ module.exports = mongoose.model('Payment', new Schema({
         required: true,
         index: true
     }
-});
+};

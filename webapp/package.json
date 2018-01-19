@@ -1,5 +1,5 @@
 {
-    "name": "litpay",
+    "name": "litpay-webapp",
     "main": "server.js",
     "dependencies": {
         "express": "latest",

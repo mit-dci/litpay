@@ -9,7 +9,8 @@ var CryptoJS = require('crypto-js');
 var auth = require('../middleware/auth');
 var authUser = require('../middleware/authUser');
 
-var Channel = require('../models/channel');
+var ChannelSchema = require('../models/channel');
+var Channel = mongoose.model('Channel', new Schema(ChannelSchema));
 
 // Dumps all the channels for a given user
 router.get('/', auth, authUser, function(req, res) {

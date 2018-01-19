@@ -1,0 +1,9 @@
+{
+    "name": "litpay-watcher",
+    "main": "server.js",
+    "dependencies": {
+        "mongoose": "latest",
+        "simple-jsonrpc-js": "latest",
+        "ws": "latest"
+    }
+}

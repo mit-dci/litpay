@@ -1,12 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
 var pw = require("../helpers/password");
 
 var auth = require('../middleware/auth');
 var authUser = require('../middleware/authUser');
 
-var User = require('../models/user');
+var UserSchema = require('../models/user');
+var User = mongoose.model('User', new Schema(UserSchema));
 
 var channels = require('./channels');
 

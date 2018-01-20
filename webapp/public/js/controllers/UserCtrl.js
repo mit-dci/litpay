@@ -15,6 +15,23 @@ angular.module('UserCtrl', []).controller('UserController',
     };
     
     $scope.updateChannels();
+    
+    $scope.newChannel = function() {
+        User.newChannel($routeParams.user_id).then(function(res) {
+            if(res.data.success) {
+                $scope.fundData = res.data.fundData;
+            } else {
+                $scope.message = res.data.message;
+            }
+        });
+    };
+    
+    $scope.newChannel();
+    
+    setInterval(function(){
+        $scope.newChannel();
+        $scope.updateChannels();
+    }, 5000);
 })
 
 .controller('LoginController', function($scope, $http, API, 

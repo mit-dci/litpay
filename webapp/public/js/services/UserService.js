@@ -12,6 +12,10 @@ angular.module('UserService', [])
         
         getChannels: function(id) {
             return $http.get('/api/users/' + id + '/channels');
+        },
+        
+        newChannel: function(id) {
+            return $http.post('/api/users/' + id + '/channels');
         }
     }   
 });

@@ -1,9 +1,15 @@
+<p>
+<strong>New Channel ID: </strong>{{ fundData }}
+</p>
 <table>
-    <tr><th>Coin Type</th><th>Gateway Balance</th><th>Capacity</th><th>Open</th></tr>
+    <tr><th>Coin Type</th><th>Gateway Balance</th><th>Capacity</th><th>Open</th><th>PKH</th><th># txs</th><th>Value</th></tr>
     <tr ng-repeat="channel in channels">
         <td>{{ channel.cointype }}</td>
         <td>{{ channel.balance }}</td>
         <td>{{ channel.capacity }}</td>
-        <td>{{ channel.open }} </td>
+        <td>{{ channel.open }}</td>
+        <td>{{ channel.pkh }}</td>
+        <td>{{ channel.transactions.length }}</td>
+        <td>{{ (channel.transactions.length === 0) ? "inf" : 2 / channel.transactions.length }}</td>
     </tr>
 </table>

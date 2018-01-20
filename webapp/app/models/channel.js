@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var TransactionSchema = require('./transaction');
+
 module.exports = {
     pkh: {
         type: String
@@ -38,19 +40,5 @@ module.exports = {
         required: true,
         index: true
     },
-    transactions: [Schema({
-        id: {
-            type: String,
-            required: true
-        },
-        delta: {
-            type: Number,
-            required: true
-        },
-        idx: {
-            type: Number,
-            required: true,
-            min: 0
-        }
-    })]
+    transactions: [Schema(TrasactionSchema)]
 };

@@ -14,7 +14,7 @@ var Channel = mongoose.model('Channel', new Schema(ChannelSchema));
 
 // Dumps all the channels for a given user
 router.get('/', auth, authUser, function(req, res) {
-    Channel.find({'user': req.params.user_id}, function(err, channels) {
+    Channel.find({'user': req.params.user_id, 'funded': true}, function(err, channels) {
         if(err) {
             return res.json({success: false,
                              message: err

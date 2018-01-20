@@ -40,5 +40,5 @@ module.exports = {
         required: true,
         index: true
     },
-    transactions: [Schema(TrasactionSchema)]
+    transactions: [Schema(TransactionSchema)]
 };

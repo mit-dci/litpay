@@ -78,16 +78,18 @@ function updateOpenChannels(rpc, callback) {
                             
                             if(newTx) {
                                 // Figure out delta
-                                var delta = lastBal - states.Txs[ids].Amt;
-                                var tx = new mongoose.Schema(TxSchema);
-                                
-                                tx.delta = delta;
-                                tx.idx = states.Txs[ids].Idx;
-                                tx.id = Util.toHexString(states.Txs[ids].Data);
-                                
-                                openChannels[ido].transactions.push(tx);
-                                lastBal = states.Txs[ids].Amt;
-                                nTxs++;
+                                var delta = states.Txs[ids].Amt - lastBal;
+                                if(delta != 0) {
+                                    var tx = new mongoose.Schema(TxSchema);
+                                    
+                                    tx.delta = delta;
+                                    tx.idx = states.Txs[ids].Idx;
+                                    tx.id = Util.toHexString(states.Txs[ids].Data);
+                                    
+                                    openChannels[ido].transactions.push(tx);
+                                    lastBal = states.Txs[ids].Amt;
+                                    nTxs++;
+                                }
                             }
                         }
                     }
@@ -96,7 +98,7 @@ function updateOpenChannels(rpc, callback) {
                     for(var idc in channels.Channels) {
                         if(Util.toHexString(channels.Channels[idc].Pkh) == openChannels[ido].pkh) {
                             if(channels.Channels[idc].StateNum == nTxs) {
-                                var delta = lastBal - channels.Channels[ids].MyBalance;
+                                var delta = channels.Channels[idc].MyBalance - lastBal;
                                 var tx = new mongoose.Schema(TxSchema);
                                 
                                 tx.delta = delta;
@@ -107,6 +109,7 @@ function updateOpenChannels(rpc, callback) {
                             }
                             
                             openChannels[ido].open = !channels.Channels[idc].Closed;
+                            openChannels[ido].balance = channels.Channels[idc].MyBalance;
                             
                             break;
                         }
@@ -117,7 +120,9 @@ function updateOpenChannels(rpc, callback) {
                             console.error("Failed to update channel")
                         }
                     });
-                }                
+                }
+
+                return callback(null);
             });
         });
     });

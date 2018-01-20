@@ -1,0 +1,46 @@
+version: "2"
+services:
+
+  lit:
+    image: lit
+    restart: always
+    expose:
+      - "8001"
+    volumes:
+      - ./data/lit:/root/.lit
+
+  webapp:
+    image: litpay-webapp
+    depends_on:
+      - lit
+      - mongodb
+    restart: always
+    environment:
+      - MONGO_HOST=mongodb
+      - MONGO_DB=litpay
+    expose:
+      - "8080"
+
+  watcher:
+    image: litpay-watcher
+    depends_on:
+      - lit
+      - mongodb
+    restart: always
+    environment:
+      - MONGO_HOST=mongodb
+      - MONGO_DB=litpay
+      - LIT_HOST=lit
+      - LIT_RPCPORT=8001
+
+  mongodb:
+    image: mongo
+    expose:
+      - "27001"
+    volumes:
+      - ./data/mongodb:/data/db
+
+networks:    
+  default:
+    external:
+      name: litpay-network

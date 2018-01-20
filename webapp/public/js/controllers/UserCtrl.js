@@ -2,8 +2,19 @@ angular.module('UserCtrl', []).controller('UserController',
                                           function($scope, User, 
                                                    $routeParams, $q) {
                                                        
+    $scope.channels = [];
     
+    $scope.updateChannels = function() {
+        User.getChannels($routeParams.user_id).then(function(res) {
+            if(res.data.success) {
+                $scope.channels = res.data.channels;
+            } else {
+                $scope.message = res.data.message;
+            }
+        });
+    };
     
+    $scope.updateChannels();
 })
 
 .controller('LoginController', function($scope, $http, API, 

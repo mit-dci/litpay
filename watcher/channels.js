@@ -99,13 +99,15 @@ function updateOpenChannels(rpc, callback) {
                         if(Util.toHexString(channels.Channels[idc].Pkh) == openChannels[ido].pkh) {
                             if(channels.Channels[idc].StateNum == nTxs) {
                                 var delta = channels.Channels[idc].MyBalance - lastBal;
-                                var tx = new mongoose.Schema(TxSchema);
-                                
-                                tx.delta = delta;
-                                tx.idx = channels.Channels[idc].StateNum;
-                                tx.id = Util.toHexString(channels.Channels[idc].Data);
-                                
-                                openChannels[ido].transactions.push(tx);
+                                if(delta != 0) {
+                                    var tx = new mongoose.Schema(TxSchema);
+                                    
+                                    tx.delta = delta;
+                                    tx.idx = channels.Channels[idc].StateNum;
+                                    tx.id = Util.toHexString(channels.Channels[idc].Data);
+                                    
+                                    openChannels[ido].transactions.push(tx);
+                                }
                             }
                             
                             openChannels[ido].open = !channels.Channels[idc].Closed;

@@ -20,7 +20,10 @@ mongoose.connect(config.database, function(err) {
         console.log("Connected to Lit");
         
         Channels.updateNewChannels(rpc, function(err) {
-            console.log("Updated channels");
+            console.log("Checked for new channels");
+            Channels.updateOpenChannels(rpc, function(err) {
+                console.log("Updated channels");
+            });
         });
     });
 });

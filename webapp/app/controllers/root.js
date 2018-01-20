@@ -3,7 +3,9 @@ var router = express.Router();
 
 var pw = require('../helpers/password');
 
-var User = require('../models/user');
+var mongoose = require('mongoose');
+var User = mongoose.model('User');
+
 var jwt  = require('jsonwebtoken'); 
 
 router.post('/authenticate', function(req, res) {

@@ -22,6 +22,8 @@ angular.module('UserCtrl', []).controller('UserController',
             }
         };
         
+        console.log(CryptoJS.SHA3($scope.password).toString());
+        
         return $http.post(API + '/authenticate', {
             name: $scope.username,
             password: CryptoJS.SHA3($scope.password).toString()

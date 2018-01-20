@@ -3,18 +3,7 @@ var ChannelSchema = require('../webapp/app/models/channel');
 
 var Channel = mongoose.model('Channel', new mongoose.Schema(ChannelSchema));
 
-function arrCmp(arr1, arr2) {
-    return (arr1.length == arr2.length
-    && arr1.every(function(u, i) {
-        return u === arr2[i];
-    }));
-}
-
-function toHexString(byteArray) {
-  return Array.from(byteArray, function(byte) {
-    return ('0' + (byte & 0xFF).toString(16)).slice(-2);
-  }).join('')
-}
+var Util = require('./util');
 
 function openChannel(pendingChannel, realChannel) {
     if(realChannel.StateNum != 0) {
@@ -27,7 +16,7 @@ function openChannel(pendingChannel, realChannel) {
     pendingChannel.balance = realChannel.MyBalance;
     pendingChannel.open = !realChannel.Closed;
     pendingChannel.funded = true;
-    pendingChannel.pkh = toHexString(realChannel.Pkh);
+    pendingChannel.pkh = Util.toHexString(realChannel.Pkh);
     
     pendingChannel.save(function(err) {
         if(err) {
@@ -50,7 +39,7 @@ function updateNewChannels(rpc, callback) {
         rpc.call('LitRPC.ChannelList', [null]).then(function(realChannels) {
             for(var idpc in pendingChannels) {
                 for(var idrc in realChannels.Channels) {
-                    if(arrCmp(realChannels.Channels[idrc].Data, [...Buffer.from(pendingChannels[idpc].fundData, "hex")])) {
+                    if(Util.arrCmp(realChannels.Channels[idrc].Data, [...Buffer.from(pendingChannels[idpc].fundData, "hex")])) {
                         openChannel(pendingChannels[idpc], realChannels.Channels[idrc]);
                         break;
                     }
@@ -74,6 +63,7 @@ function updateOpenChannels(rpc, callback) {
                 
                 for(var ido in openChannels) {
                     // Add missing transactions from StateDump
+                    
                     
                     // Update channel status
                 }

@@ -51,7 +51,6 @@ angular.module('AuthService', [])
 
     this.logout = function() {
         $cookies.remove('jwtToken');
-        $cookies.remove('password');
         $location.path("/");
     };
 

@@ -1,6 +1,8 @@
 angular.module('UserCtrl', []).controller('UserController', 
                                           function($scope, User, 
                                                    $routeParams, $q) {
+                                                       
+    
     
 })
 
@@ -17,12 +19,9 @@ angular.module('UserCtrl', []).controller('UserController',
             if(res.data.success) {
                 var expiry = new Date();
                 expiry.setDate(expiry.getDate() + (1.0/48));
-                $cookies.put('password', $scope.password, {expiry: expiry});
                 $location.path("/");
             }
         };
-        
-        console.log(CryptoJS.SHA3($scope.password).toString());
         
         return $http.post(API + '/authenticate', {
             name: $scope.username,

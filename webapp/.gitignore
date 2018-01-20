@@ -3,3 +3,4 @@ node_modules
 public/libs
 npm-debug.log
 .codelite
+.tern-project

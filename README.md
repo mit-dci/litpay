@@ -10,6 +10,6 @@ fees and confirmation times are prohibitively high for small payments. The effec
 
 #### Components (so far)
 
-- litpay-webapp: an angular/express web application for the frontend control of LitPay
-- litpay-watcher: a node daemon for managing Lit channels with users and updating their states for the frontend
+- [litpay-webapp](https://github.com/mit-dci/litpay/tree/master/webapp): an angular/express web application for the frontend control of LitPay
+- [litpay-watcher](https://github.com/mit-dci/litpay/tree/master/watcher): a node daemon for managing Lit channels with users and updating their states for the frontend
 - [lit](https://github.com/mit-dci/lit): MIT LN daemon

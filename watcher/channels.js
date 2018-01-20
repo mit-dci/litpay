@@ -1,5 +1,6 @@
 var mongoose = require('mongoose').set('debug', true);
 var ChannelSchema = require('../webapp/app/models/channel');
+var TxSchema = require('../webapp/app/models/transaction');
 
 var Channel = mongoose.model('Channel', new mongoose.Schema(ChannelSchema));
 
@@ -59,14 +60,64 @@ function updateOpenChannels(rpc, callback) {
         }
         
         rpc.call('LitRPC.StateDump', [null]).then(function(states) {
-            rpc.call('LitRPC.ChannelList', [null]).then(function(channels) {
-                
+            rpc.call('LitRPC.ChannelList', [null]).then(function(channels) {                
                 for(var ido in openChannels) {
+                    var nTxs = openChannels[ido].transactions.length;
+                    var lastBal = openChannels[ido].balance;
+                    
                     // Add missing transactions from StateDump
+                    for(var ids in states.Txs) {
+                        if(Util.toHexString(states.Txs[ids].Pkh) == openChannels[ido].pkh) {
+                            var newTx = true;
+                            
+                            if(nTxs > 0) {
+                                if(states.Txs[ids].Idx <= openChannels[ido].transactions[nTxs - 1].idx) {
+                                    newTx = false;
+                                }
+                            }
+                            
+                            if(newTx) {
+                                // Figure out delta
+                                var delta = lastBal - states.Txs[ids].Amt;
+                                var tx = new mongoose.Schema(TxSchema);
+                                
+                                tx.delta = delta;
+                                tx.idx = states.Txs[ids].Idx;
+                                tx.id = Util.toHexString(states.Txs[ids].Data);
+                                
+                                openChannels[ido].transactions.push(tx);
+                                lastBal = states.Txs[ids].Amt;
+                                nTxs++;
+                            }
+                        }
+                    }
                     
+                    // Update latest channel status
+                    for(var idc in channels.Channels) {
+                        if(Util.toHexString(channels.Channels[idc].Pkh) == openChannels[ido].pkh) {
+                            if(channels.Channels[idc].StateNum == nTxs) {
+                                var delta = lastBal - channels.Channels[ids].MyBalance;
+                                var tx = new mongoose.Schema(TxSchema);
+                                
+                                tx.delta = delta;
+                                tx.idx = channels.Channels[idc].StateNum;
+                                tx.id = Util.toHexString(channels.Channels[idc].Data);
+                                
+                                openChannels[ido].transactions.push(tx);
+                            }
+                            
+                            openChannels[ido].open = !channels.Channels[idc].Closed;
+                            
+                            break;
+                        }
+                    }
                     
-                    // Update channel status
-                }
+                    openChannels[ido].save(function(err) {
+                        if(err) {
+                            console.error("Failed to update channel")
+                        }
+                    });
+                }                
             });
         });
     });

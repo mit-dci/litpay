@@ -13,8 +13,10 @@ var UserSchema = require('../models/user');
 var User = mongoose.model('User', new Schema(UserSchema));
 
 var channels = require('./channels');
+var payments = require('./payments');
 
 router.use('/:user_id/channels', channels);
+router.use('/:user_id/payments', payments);
 
 router.get('/', auth, function(req, res) {
     User.find({}, function(err, users){

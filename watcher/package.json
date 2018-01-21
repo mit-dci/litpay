@@ -4,6 +4,7 @@
     "dependencies": {
         "mongoose": "latest",
         "simple-jsonrpc-js": "latest",
-        "ws": "latest"
+        "ws": "latest",
+        "when": "latest"
     }
 }

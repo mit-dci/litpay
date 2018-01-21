@@ -3,13 +3,11 @@
     text-align: left;
 }
 
-/*.scrolling-table {
-    height: 20vh;
-    overflow-x: none;
-    overflow-y: scroll;
+.scrolling-table {
+    overflow: hidden;
     word-break: break-word;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}*/
+}
 
 .scrolling-table tbody {
     -ms-overflow-style: none;  // IE 10+
@@ -24,7 +22,7 @@ table {
 }
 
 .scrolling-table thead {
-  width: 97%;
+  width: 100%;
 }
 .scrolling-table tbody {
   height: 230px;
@@ -41,8 +39,8 @@ table {
 }
 
 td, th {
-    padding: 0.25em;
     overflow: hidden;
+    height: 3em;
 }
 
 th {
@@ -50,16 +48,15 @@ th {
     color: white;
 }
 
-td {
+td, th {
     text-align: left;
-    overflow: hidden;
 }
 
-tr:nth-child(even) {
+.scrolling-table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-tr:hover {
+.scrolling-table tr:hover {
     background-color: #f5f5f5;
 }
 

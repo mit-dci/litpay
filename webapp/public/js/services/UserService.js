@@ -1,6 +1,6 @@
 angular.module('UserService', [])
 
-.factory('User', function($http, $q, $cookies) {
+.factory('User', function($http) {
     return {
         get: function(id) {
             return $http.get('/api/users/' + id);

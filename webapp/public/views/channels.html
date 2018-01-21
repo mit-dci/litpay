@@ -6,7 +6,7 @@
     <table class="text-center">
         <thead>
             <tr>
-                <th class="col-xs-2">Coin type</th>
+                <th class="col-xs-2">Coin</th>
                 <th class="col-xs-2">Gateway balance</th>
                 <th class="col-xs-1">Capacity</th>
                 <th class="col-xs-1">Open</th>
@@ -17,9 +17,9 @@
         </thead>
         <tbody>
             <tr ng-repeat="channel in channels">
-                <td class="col-xs-2">{{ channel.cointype }}</td>
-                <td class="col-xs-2">{{ channel.balance }}</td>
-                <td class="col-xs-1">{{ channel.capacity }}</td>
+                <td class="col-xs-2">{{ coinTypeToName(channel.cointype).name }}</td>
+                <td class="col-xs-2">{{ (channel.balance / 100000000) + " " + coinTypeToName(channel.cointype).ticker }}</td>
+                <td class="col-xs-1">{{ (channel.capacity / 100000000) + " " + coinTypeToName(channel.cointype).ticker }}</td>
                 <td class="col-xs-1">{{ channel.open }}</td>
                 <td class="col-xs-3">{{ channel.pkh }}</td>
                 <td class="col-xs-1">{{ channel.transactions.length }}</td>

@@ -1,11 +1,13 @@
 angular.module('UserCtrl', []).controller('UserController', 
                                           function($scope, User, 
                                                    $routeParams, $location,
-                                                   $interval) {
+                                                   $interval, Coin) {
                                                        
     $scope.channels = [];
     $scope.transactions = [];
     $scope.payment = {};
+    
+    $scope.coinTypeToName = Coin.coinTypeToName;
     
     $scope.updateChannels = function() {
         User.getChannels($routeParams.user_id).then(function(res) {
@@ -82,12 +84,12 @@ angular.module('UserCtrl', []).controller('UserController',
         }
     });
     
-    $scope.updateTimer = $interval(function(){
+    /*$scope.updateTimer = $interval(function(){
         $scope.newChannel();
         $scope.updateChannels();
         $scope.updateTransactions();
         $scope.updatePayments();
-    }, 5000);
+    }, 5000);*/
 })
 
 .controller('LoginController', function($scope, $http, API, 

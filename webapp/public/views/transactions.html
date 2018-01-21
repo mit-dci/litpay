@@ -6,15 +6,15 @@
                 <th class="col-xs-4">Channel PKH</th>
                 <th class="col-xs-4">Push Data</th>
                 <th class="col-xs-2">Delta</th>
-                <th class="col-xs-2">Coin Type</th>
+                <th class="col-xs-2">Coin</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="tx in transactions">
                 <td class="col-xs-4">{{ tx.pkh }}</td>
                 <td class="col-xs-4">{{ tx.pushData }}</td>
-                <td class="col-xs-2">{{ tx.delta }}</td>
-                <td class="col-xs-2">{{ tx.cointype }}</td>
+                <td class="col-xs-2">{{ (-tx.delta / 100000000) + " " + coinTypeToName(tx.cointype).ticker }}</td>
+                <td class="col-xs-2">{{ coinTypeToName(tx.cointype).name }}</td>
             </tr>
         </tbody>
     </table>

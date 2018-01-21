@@ -1,11 +1,13 @@
 <h3>Invoices</h3>
 <h4>New Invoice</h4>
-<p><input type="text" ng-model="payment.to" placeholder="to">
-<input type="number" ng-model="payment.amount" min="0" step="1" 
+<p>
+    <input type="text" ng-model="payment.to" placeholder="to">
+    <input type="number" ng-model="payment.amount" min="0" step="1" 
 placeholder="amount">
-<input type="number" ng-model="payment.cointype" min="0" step="1" max="65536"
+    <input type="number" ng-model="payment.cointype" min="0" step="1" max="65536"
 placeholder="coin type">
-<button class="btn" ng-click="newPayment()">Create Invoice</button>
+    <button class="btn" ng-click="newPayment()">Create Invoice</button>
+</p>
 <h4>Receivable</h4>
 <div class="scrolling-table">
     <table>
@@ -15,7 +17,7 @@ placeholder="coin type">
                 <th class="col-xs-3">Push Data</th>
                 <th class="col-xs-1">Amount</th>
                 <th class="col-xs-1">Balance</th>
-                <th class="col-xs-2">Coin Type</th>
+                <th class="col-xs-2">Coin</th>
                 <th class="col-xs-3">Timeout</th>
             </tr>
         </thead>
@@ -23,11 +25,11 @@ placeholder="coin type">
             <tr ng-repeat="payment in receivable">
                 <td class="col-xs-2">{{ payment.from }}</td>
                 <td class="col-xs-3">{{ payment.pushData }}</td>
-                <td class="col-xs-1">{{ payment.amount }}</td>
-                <td class="col-xs-1">{{ (payment.balance <= 0) ? "Paid" : payment.balance }}</td>
-                <td class="col-xs-2">{{ payment.cointype }}</td>
+                <td class="col-xs-1">{{ (payment.amount / 100000000) + " " + coinTypeToName(payment.cointype).ticker }}</td>
+                <td class="col-xs-1">{{ (payment.balance <= 0) ? "Paid" : (payment.balance / 100000000) + " " + coinTypeToName(payment.cointype).ticker }}</td>
+                <td class="col-xs-2">{{ coinTypeToName(payment.cointype).name }}</td>
                 <td class="col-xs-3">{{ payment.timeout }}</td>
-            </tr>'
+            </tr>
         </tbody>
     </table>
 </div>
@@ -40,7 +42,7 @@ placeholder="coin type">
                 <th class="col-xs-3">Push Data</th>
                 <th class="col-xs-1">Amount</th>
                 <th class="col-xs-1">Balance</th>
-                <th class="col-xs-2">Coin Type</th>
+                <th class="col-xs-2">Coin</th>
                 <th class="col-xs-3">Timeout</th>
             </tr>
         </thead>
@@ -48,9 +50,9 @@ placeholder="coin type">
             <tr ng-repeat="payment in payable">
                 <td class="col-xs-2">{{ payment.from }}</td>
                 <td class="col-xs-3">{{ payment.pushData }}</td>
-                <td class="col-xs-1">{{ payment.amount }}</td>
-                <td class="col-xs-1">{{ (payment.balance <= 0) ? "Paid" : payment.balance }}</td>
-                <td class="col-xs-2">{{ payment.cointype }}</td>
+                <td class="col-xs-1">{{ (payment.amount / 100000000) + " " + coinTypeToName(payment.cointype).ticker }}</td>
+                <td class="col-xs-1">{{ (payment.balance <= 0) ? "Paid" : (payment.balance / 100000000) + " " + coinTypeToName(payment.cointype).ticker }}</td>
+                <td class="col-xs-2">{{ coinTypeToName(payment.cointype).name }}</td>
                 <td class="col-xs-3">{{ payment.timeout }}</td>
             </tr>
         </tbody>

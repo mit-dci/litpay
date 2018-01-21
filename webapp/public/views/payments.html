@@ -1,0 +1,32 @@
+<h3>Invoices</h3>
+<h4>New Invoice</h4>
+<p><input type="text" ng-model="payment.to" placeholder="to">
+<input type="number" ng-model="payment.amount" min="0" step="1" 
+placeholder="amount">
+<input type="number" ng-model="payment.cointype" min="0" step="1" max="65536"
+placeholder="coin type">
+<button class="btn" ng-click="newPayment()">Create Invoice</button>
+<h4>Receivable</h4>
+<table>
+    <tr><th>Payer</th><th>Push Data</th><th>Amount</th><th>Balance</th><th>Coin Type</th><th>Timeout</th></tr>
+    <tr ng-repeat="payment in receivable">
+        <td>{{ payment.from }}</td>
+        <td>{{ payment.pushData }}</td>
+        <td>{{ payment.amount }}</td>
+        <td>{{ (payment.balance <= 0) ? "Paid" : payment.balance }}</td>
+        <td>{{ payment.cointype }}</td>
+        <td>{{ payment.timeout }}</td>
+    </tr>
+</table>
+<h4>Payable</h4>
+<table>
+    <tr><th>Recipient</th><th>Push Data</th><th>Amount</th><th>Balance</th><th>Coin Type</th><th>Timeout</th></tr>
+    <tr ng-repeat="payment in payable">
+        <td>{{ payment.from }}</td>
+        <td>{{ payment.pushData }}</td>
+        <td>{{ payment.amount }}</td>
+        <td>{{ (payment.balance <= 0) ? "Paid" : payment.balance }}</td>
+        <td>{{ payment.cointype }}</td>
+        <td>{{ payment.timeout }}</td>
+    </tr>
+</table>

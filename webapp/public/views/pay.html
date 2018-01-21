@@ -1,0 +1,10 @@
+<h3>Pay Invoice</h3>
+<p ng-if="!paid">
+<strong>Payment ID:</strong> {{ payment.pushData }}<br>
+<strong>Recipient:</strong> {{ payment.to }}<br>
+<strong>Timeout:</strong> {{ timeout }}<br>
+<strong>Balance:</strong> {{ payment.balance }}
+</p>
+<div ng-if="paid">
+<h4><strong>Invoice Paid</strong></h4>
+</div>

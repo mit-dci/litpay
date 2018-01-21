@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 module.exports = {
-    id: {
+    pushData: {
         type: String,
         required: true
     },
@@ -32,5 +32,9 @@ module.exports = {
         ref: 'User',
         required: true,
         index: true
+    },
+    timeout: {
+        type: Date,
+        required: true
     }
 };

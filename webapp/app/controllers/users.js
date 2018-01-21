@@ -13,14 +13,10 @@ var UserSchema = require('../models/user');
 var User = mongoose.model('User', new Schema(UserSchema));
 
 var channels = require('./channels');
+var payments = require('./payments');
 
 router.use('/:user_id/channels', channels);
-
-router.get('/', auth, function(req, res) {
-    User.find({}, function(err, users){
-        res.json(users);
-    });
-});
+router.use('/:user_id/payments', payments);
 
 router.post('/', function(req, res) {
     req.checkBody('password', 'Password is required').notEmpty();
@@ -136,7 +132,9 @@ router.get('/:user_id', auth, authUser, function(req, res) {
                            });
        }
        
-       res.json(user);
+       res.json({success: true,
+                 user: user
+                });
     });
 });
 

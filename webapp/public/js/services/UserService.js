@@ -16,6 +16,18 @@ angular.module('UserService', [])
         
         newChannel: function(id) {
             return $http.post('/api/users/' + id + '/channels');
+        },
+        
+        getPayments: function(id) {
+            return $http.get('/api/users/' + id + '/payments');
+        },
+        
+        newPayment: function(id, payment) {            
+            return $http.post('/api/users/' + id + '/payments', payment);
+        },
+        
+        getPayment: function(id, payment) {
+            return $http.get('/api/users/' + id + '/payments/' + payment);
         }
     }   
 });

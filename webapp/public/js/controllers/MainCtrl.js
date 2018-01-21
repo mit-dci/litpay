@@ -7,4 +7,6 @@ angular.module('MainCtrl', []).controller('MainController',
     } else {
         $location.path('/login');
     }
+    
+    $scope.tagline = "Like BitPay, but more 'lit'";
 });

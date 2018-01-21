@@ -1,5 +1,5 @@
 module.exports = {
-    id: {
+    pushData: {
         type: String,
         required: true
     },
@@ -11,5 +11,10 @@ module.exports = {
         type: Number,
         required: true,
         min: 0
+    },
+    accounted: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 };

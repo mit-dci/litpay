@@ -4,6 +4,7 @@ angular.module('UserCtrl', []).controller('UserController',
                                                        
     $scope.channels = [];
     $scope.transactions = [];
+    $scope.payment = {};
     
     $scope.updateChannels = function() {
         User.getChannels($routeParams.user_id).then(function(res) {
@@ -67,6 +68,12 @@ angular.module('UserCtrl', []).controller('UserController',
     };
     
     $scope.updatePayments();
+    
+    $scope.newPayment = function() {
+        User.newPayment($routeParams.user_id, $scope.payment).then(function(res) {
+            $scope.updatePayments();
+        });
+    };
     
     setInterval(function(){
         $scope.newChannel();

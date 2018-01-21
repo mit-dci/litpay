@@ -20,6 +20,10 @@ angular.module('UserService', [])
         
         getPayments: function(id) {
             return $http.get('/api/users/' + id + '/payments');
+        },
+        
+        newPayment: function(id, payment) {            
+            return $http.post('/api/users/' + id + '/payments', payment);
         }
     }   
 });

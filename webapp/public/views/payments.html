@@ -1,4 +1,11 @@
 <h3>Invoices</h3>
+<h4>New Invoice</h4>
+<p><input type="text" ng-model="payment.to" placeholder="to">
+<input type="number" ng-model="payment.amount" min="0" step="1" 
+placeholder="amount">
+<input type="number" ng-model="payment.cointype" min="0" step="1" max="65536"
+placeholder="coin type">
+<button class="btn" ng-click="newPayment()">Create Invoice</button>
 <h4>Receivable</h4>
 <table>
     <tr><th>Payer</th><th>Push Data</th><th>Amount</th><th>Balance</th><th>Coin Type</th><th>Timeout</th></tr>

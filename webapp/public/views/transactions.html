@@ -1,0 +1,10 @@
+<h3>Transactions</h3>
+<table>
+    <tr><th>Channel PKH</th><th>Push Data</th><th>Delta</th><th>Coin Type</th></tr>
+    <tr ng-repeat="tx in transactions">
+        <td>{{ tx.pkh }}</td>
+        <td>{{ tx.pushData }}</td>
+        <td>{{ tx.delta }}</td>
+        <td>{{ tx.cointype }}</td>
+    </tr>
+</table>

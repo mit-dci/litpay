@@ -84,9 +84,11 @@ function updateOpenChannels(rpc, callback) {
                                     
                                     tx.delta = delta;
                                     tx.idx = states.Txs[ids].Idx;
-                                    tx.id = Util.toHexString(states.Txs[ids].Data);
+                                    tx.pushData = Util.toHexString(states.Txs[ids].Data);
                                     
                                     openChannels[ido].transactions.push(tx);
+                                    openChannels[ido].balance = channels.Channels[idc].MyBalance;
+                                    
                                     lastBal = states.Txs[ids].Amt;
                                     nTxs++;
                                 }
@@ -104,14 +106,15 @@ function updateOpenChannels(rpc, callback) {
                                     
                                     tx.delta = delta;
                                     tx.idx = channels.Channels[idc].StateNum;
-                                    tx.id = Util.toHexString(channels.Channels[idc].Data);
+                                    tx.pushData = Util.toHexString(channels.Channels[idc].Data);
                                     
                                     openChannels[ido].transactions.push(tx);
+                                    
+                                    openChannels[ido].balance = channels.Channels[idc].MyBalance;
                                 }
                             }
                             
                             openChannels[ido].open = !channels.Channels[idc].Closed;
-                            openChannels[ido].balance = channels.Channels[idc].MyBalance;
                             
                             break;
                         }

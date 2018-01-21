@@ -3,6 +3,7 @@ angular.module('UserCtrl', []).controller('UserController',
                                                    $routeParams, $q) {
                                                        
     $scope.channels = [];
+    $scope.transactions = [];
     
     $scope.updateChannels = function() {
         User.getChannels($routeParams.user_id).then(function(res) {
@@ -28,9 +29,25 @@ angular.module('UserCtrl', []).controller('UserController',
     
     $scope.newChannel();
     
+    $scope.updateTransactions = function() {
+        var txs = [];
+        for(var channel in $scope.channels) {
+            for(var tx in $scope.channels[channel].transactions) {
+                $scope.channels[channel].transactions[tx].pkh = $scope.channels[channel].pkh;
+                $scope.channels[channel].transactions[tx].cointype = $scope.channels[channel].cointype;
+                txs.push($scope.channels[channel].transactions[tx]);
+            }
+        }
+        
+        $scope.transactions = txs;
+    };
+    
+    $scope.updateTransactions();
+    
     setInterval(function(){
         $scope.newChannel();
         $scope.updateChannels();
+        $scope.updateTransactions();
     }, 5000);
 })
 

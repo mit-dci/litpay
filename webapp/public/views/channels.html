@@ -1,7 +1,8 @@
+<h3>Channels</h3>
 <p>
 <strong>New Channel ID: </strong>{{ fundData }}
 </p>
-<table>
+<table class="text-center">
     <tr><th>Coin Type</th><th>Gateway Balance</th><th>Capacity</th><th>Open</th><th>PKH</th><th># txs</th><th>Value</th></tr>
     <tr ng-repeat="channel in channels">
         <td>{{ channel.cointype }}</td>

@@ -1,5 +1,5 @@
 module.exports = {
-    id: {
+    pushData: {
         type: String,
         required: true
     },

@@ -18,12 +18,6 @@ var payments = require('./payments');
 router.use('/:user_id/channels', channels);
 router.use('/:user_id/payments', payments);
 
-router.get('/', auth, function(req, res) {
-    User.find({}, function(err, users){
-        res.json(users);
-    });
-});
-
 router.post('/', function(req, res) {
     req.checkBody('password', 'Password is required').notEmpty();
     req.checkBody('password', 'Password must be at least 8 characters')

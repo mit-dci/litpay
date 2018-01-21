@@ -1,0 +1,23 @@
+<h3>Invoices</h3>
+<h4>Receivable</h4>
+<table>
+    <tr><th>Payer</th><th>Push Data</th><th>Amount</th><th>Balance</th><th>Coin Type</th></tr>
+    <tr ng-repeat="payment in receivable">
+        <td>{{ payment.from }}</td>
+        <td>{{ payment.pushData }}</td>
+        <td>{{ payment.amount }}</td>
+        <td>{{ (payment.balance <= 0) ? "Paid" : payment.balance }}</td>
+        <td>{{ payment.cointype }}</td>
+    </tr>
+</table>
+<h4>Payable</h4>
+<table>
+    <tr><th>Recipient</th><th>Push Data</th><th>Amount</th><th>Balance</th><th>Coin Type</th></tr>
+    <tr ng-repeat="payment in payable">
+        <td>{{ payment.from }}</td>
+        <td>{{ payment.pushData }}</td>
+        <td>{{ payment.amount }}</td>
+        <td>{{ (payment.balance <= 0) ? "Paid" : payment.balance }}</td>
+        <td>{{ payment.cointype }}</td>
+    </tr>
+</table>

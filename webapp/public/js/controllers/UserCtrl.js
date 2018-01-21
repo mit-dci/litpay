@@ -44,10 +44,24 @@ angular.module('UserCtrl', []).controller('UserController',
     
     $scope.updateTransactions();
     
+    $scope.updatePayments = function() {
+        User.getPayments($routeParams.user_id).then(function(res) {
+            if(res.data.success) {
+                $scope.payable = res.data.payable;
+                $scope.receivable = res.data.receivable;
+            } else {
+                $scope.message = res.data.message;
+            }
+        });
+    };
+    
+    $scope.updatePayments();
+    
     setInterval(function(){
         $scope.newChannel();
         $scope.updateChannels();
         $scope.updateTransactions();
+        $scope.updatePayments();
     }, 5000);
 })
 

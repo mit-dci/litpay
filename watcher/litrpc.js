@@ -5,7 +5,10 @@ var WebSocket = require('ws');
 function connect() {
     return new Promise(function(resolve, reject){
         var jrpc = new JsonRPC();
-        var socket = new WebSocket("ws://127.0.0.1:8001/ws", 
+        var litHost = process.env.LIT_HOST || '127.0.0.1';
+        var litRpcPort = process.env.LIT_RPCPORT || '8001';
+
+        var socket = new WebSocket("ws://" + litHost + ":" + litRpcPort + "/ws", 
                                    { origin: 'http://localhost' });
 
         socket.onmessage = function(event) {

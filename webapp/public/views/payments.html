@@ -7,26 +7,52 @@ placeholder="amount">
 placeholder="coin type">
 <button class="btn" ng-click="newPayment()">Create Invoice</button>
 <h4>Receivable</h4>
-<table>
-    <tr><th>Payer</th><th>Push Data</th><th>Amount</th><th>Balance</th><th>Coin Type</th><th>Timeout</th></tr>
-    <tr ng-repeat="payment in receivable">
-        <td>{{ payment.from }}</td>
-        <td>{{ payment.pushData }}</td>
-        <td>{{ payment.amount }}</td>
-        <td>{{ (payment.balance <= 0) ? "Paid" : payment.balance }}</td>
-        <td>{{ payment.cointype }}</td>
-        <td>{{ payment.timeout }}</td>
-    </tr>
-</table>
+<div class="scrolling-table">
+    <table>
+        <thead>
+            <tr>
+                <th class="col-xs-2">Payer</th>
+                <th class="col-xs-3">Push Data</th>
+                <th class="col-xs-1">Amount</th>
+                <th class="col-xs-1">Balance</th>
+                <th class="col-xs-2">Coin Type</th>
+                <th class="col-xs-3">Timeout</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="payment in receivable">
+                <td class="col-xs-2">{{ payment.from }}</td>
+                <td class="col-xs-3">{{ payment.pushData }}</td>
+                <td class="col-xs-1">{{ payment.amount }}</td>
+                <td class="col-xs-1">{{ (payment.balance <= 0) ? "Paid" : payment.balance }}</td>
+                <td class="col-xs-2">{{ payment.cointype }}</td>
+                <td class="col-xs-3">{{ payment.timeout }}</td>
+            </tr>'
+        </tbody>
+    </table>
+</div>
 <h4>Payable</h4>
-<table>
-    <tr><th>Recipient</th><th>Push Data</th><th>Amount</th><th>Balance</th><th>Coin Type</th><th>Timeout</th></tr>
-    <tr ng-repeat="payment in payable">
-        <td>{{ payment.from }}</td>
-        <td>{{ payment.pushData }}</td>
-        <td>{{ payment.amount }}</td>
-        <td>{{ (payment.balance <= 0) ? "Paid" : payment.balance }}</td>
-        <td>{{ payment.cointype }}</td>
-        <td>{{ payment.timeout }}</td>
-    </tr>
-</table>
+<div class="scrolling-table">
+    <table>
+        <thead>
+            <tr>
+                <th class="col-xs-2">Recipient</th>
+                <th class="col-xs-3">Push Data</th>
+                <th class="col-xs-1">Amount</th>
+                <th class="col-xs-1">Balance</th>
+                <th class="col-xs-2">Coin Type</th>
+                <th class="col-xs-3">Timeout</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="payment in payable">
+                <td class="col-xs-2">{{ payment.from }}</td>
+                <td class="col-xs-3">{{ payment.pushData }}</td>
+                <td class="col-xs-1">{{ payment.amount }}</td>
+                <td class="col-xs-1">{{ (payment.balance <= 0) ? "Paid" : payment.balance }}</td>
+                <td class="col-xs-2">{{ payment.cointype }}</td>
+                <td class="col-xs-3">{{ payment.timeout }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

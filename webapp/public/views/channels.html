@@ -1,16 +1,30 @@
 <h3>Channels</h3>
 <p>
-<strong>New Channel ID: </strong>{{ fundData }}
+<strong>New channel ID: </strong>{{ fundData }}
 </p>
-<table class="text-center">
-    <tr><th>Coin Type</th><th>Gateway Balance</th><th>Capacity</th><th>Open</th><th>PKH</th><th># txs</th><th>Value</th></tr>
-    <tr ng-repeat="channel in channels">
-        <td>{{ channel.cointype }}</td>
-        <td>{{ channel.balance }}</td>
-        <td>{{ channel.capacity }}</td>
-        <td>{{ channel.open }}</td>
-        <td>{{ channel.pkh }}</td>
-        <td>{{ channel.transactions.length }}</td>
-        <td>{{ (channel.transactions.length === 0) ? "inf" : 2 / channel.transactions.length }}</td>
-    </tr>
-</table>
+<div class="scrolling-table">
+    <table class="text-center">
+        <thead>
+            <tr>
+                <th class="col-xs-2">Coin type</th>
+                <th class="col-xs-2">Gateway balance</th>
+                <th class="col-xs-1">Capacity</th>
+                <th class="col-xs-1">Open</th>
+                <th class="col-xs-3">PKH</th>
+                <th class="col-xs-1"># txs</th>
+                <th class="col-xs-2">Fee multiplier per tx</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="channel in channels">
+                <td class="col-xs-2">{{ channel.cointype }}</td>
+                <td class="col-xs-2">{{ channel.balance }}</td>
+                <td class="col-xs-1">{{ channel.capacity }}</td>
+                <td class="col-xs-1">{{ channel.open }}</td>
+                <td class="col-xs-3">{{ channel.pkh }}</td>
+                <td class="col-xs-1">{{ channel.transactions.length }}</td>
+                <td class="col-xs-2">{{ (channel.transactions.length === 0) ? "inf" : 2 / channel.transactions.length }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

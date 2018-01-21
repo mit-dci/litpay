@@ -1,10 +1,21 @@
 <h3>Transactions</h3>
-<table>
-    <tr><th>Channel PKH</th><th>Push Data</th><th>Delta</th><th>Coin Type</th></tr>
-    <tr ng-repeat="tx in transactions">
-        <td>{{ tx.pkh }}</td>
-        <td>{{ tx.pushData }}</td>
-        <td>{{ tx.delta }}</td>
-        <td>{{ tx.cointype }}</td>
-    </tr>
-</table>
+<div class="scrolling-table">
+    <table>
+        <thead>
+            <tr>
+                <th class="col-xs-4">Channel PKH</th>
+                <th class="col-xs-4">Push Data</th>
+                <th class="col-xs-2">Delta</th>
+                <th class="col-xs-2">Coin Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="tx in transactions">
+                <td class="col-xs-4">{{ tx.pkh }}</td>
+                <td class="col-xs-4">{{ tx.pushData }}</td>
+                <td class="col-xs-2">{{ tx.delta }}</td>
+                <td class="col-xs-2">{{ tx.cointype }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

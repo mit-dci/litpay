@@ -15,11 +15,12 @@ mongoose.connect(config.database, function(err) {
     LitRPC().then(function(rpc) {
         console.log("Connected to Lit");
         
-        setInterval(function(){Channels.updateNewChannels(rpc, function(err) {
-            console.log("Checked for new channels");
-            Channels.updateOpenChannels(rpc, function(err) {
-                console.log("Updated channels");
-            });
+        setInterval(function() {
+            Channels.updateNewChannels(rpc).then(function(err) {
+                console.log("Checked for new channels");
+                Channels.updateOpenChannels(rpc).then(function(err) {
+                    console.log("Updated channels");
+                });
         })}, 5000);
     });
 });

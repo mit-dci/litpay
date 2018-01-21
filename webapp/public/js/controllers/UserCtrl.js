@@ -49,6 +49,17 @@ angular.module('UserCtrl', []).controller('UserController',
             if(res.data.success) {
                 $scope.payable = res.data.payable;
                 $scope.receivable = res.data.receivable;
+                for(var i in $scope.payable) {
+                    if(Date.parse($scope.payable[i].timeout) < Date.now()) {
+                        $scope.payable[i].timeout = "Expired";
+                    }
+                }
+                
+                for(var i in $scope.receivable) {
+                    if(Date.parse($scope.receivable[i].timeout) < Date.now()) {
+                        $scope.receivable[i].timeout = "Expired";
+                    }
+                }
             } else {
                 $scope.message = res.data.message;
             }

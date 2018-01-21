@@ -36,6 +36,7 @@ function processPayment(payment) {
                 }));
             }
             
+            // The channels can be saved in parallel as they don't affect each other
             Promise.all(promises).then(function(errs) {
                 for(var err in errs) {
                     if(errs[err]) {
@@ -44,6 +45,8 @@ function processPayment(payment) {
                     }
                 }
                 
+                // Payment should only be saved after txs have been marked as accounted 
+                // to prevent double spends due to a race condition 
                 payment.save(function(err) {
                     if(err) {
                         console.error("Failed to save payment");
@@ -64,6 +67,7 @@ function matchPayments() {
                 return resolve(err);
             }
             
+            // These promises need to occur in sequence or txs/payments could be double counted
             var chain = when();
             
             for(var payment in payments) {

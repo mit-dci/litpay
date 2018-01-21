@@ -24,6 +24,10 @@ angular.module('UserService', [])
         
         newPayment: function(id, payment) {            
             return $http.post('/api/users/' + id + '/payments', payment);
+        },
+        
+        getPayment: function(id, payment) {
+            return $http.get('/api/users/' + id + '/payments/' + payment);
         }
     }   
 });

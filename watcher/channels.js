@@ -99,7 +99,7 @@ function updateOpenChannels(rpc) {
                                         tx.pushData = Util.toHexString(states.Txs[ids].Data);
                                         
                                         openChannels[ido].transactions.push(tx);
-                                        openChannels[ido].balance = channels.Channels[idc].MyBalance;
+                                        openChannels[ido].balance = states.Txs[ids].Amt;
                                         
                                         lastBal = states.Txs[ids].Amt;
                                         nTxs++;

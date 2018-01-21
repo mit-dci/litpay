@@ -132,7 +132,9 @@ router.get('/:user_id', auth, authUser, function(req, res) {
                            });
        }
        
-       res.json(user);
+       res.json({success: true,
+                 user: user
+                });
     });
 });
 

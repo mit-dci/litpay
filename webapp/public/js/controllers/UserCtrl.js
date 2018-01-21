@@ -84,12 +84,12 @@ angular.module('UserCtrl', []).controller('UserController',
         }
     });
     
-    /*$scope.updateTimer = $interval(function(){
+    $scope.updateTimer = $interval(function(){
         $scope.newChannel();
         $scope.updateChannels();
         $scope.updateTransactions();
         $scope.updatePayments();
-    }, 5000);*/
+    }, 5000);
 })
 
 .controller('LoginController', function($scope, $http, API, 

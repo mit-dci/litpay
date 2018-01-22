@@ -177,4 +177,20 @@ angular.module('UserCtrl', []).controller('UserController',
     
     $scope.updateTimer = $interval($scope.updatePayment, 5000);
     $scope.timeoutTimer = $interval($scope.updateTimeout, 500);
+})
+
+.controller('NewPaymentController', function(User, $location, auth) {
+    var payment = {
+        cointype: $location.search().cointype,
+        to: $location.search().to,
+        amount: $location.search().amount
+    };
+    
+    User.newPayment(auth.getToken().id, payment).then(function(res) {
+        if(res.data.success) {
+            return $location.path("/users/" + auth.getToken().id + "/payments/" + res.data.payment._id);
+        } else {
+            return $location.path("/users/" + auth.getToken().id);
+        }
+    });
 });

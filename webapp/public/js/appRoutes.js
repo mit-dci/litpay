@@ -9,7 +9,12 @@ function($stateProvider, $urlRouterProvider, $locationProvider) {
     });
     
     $stateProvider
-        // home page        
+        
+        .state('newpayment', {
+            url: '/pay',
+            controller: 'NewPaymentController'
+        })
+        
         .state('pay', {
             url: '/users/{user_id}/payments/{payment_id}',
             templateUrl: 'views/pay.html',

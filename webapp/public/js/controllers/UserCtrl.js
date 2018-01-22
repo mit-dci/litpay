@@ -1,6 +1,6 @@
 angular.module('UserCtrl', []).controller('UserController', 
                                           function($scope, User, 
-                                                   $routeParams, $location,
+                                                   $transition$, $location,
                                                    $interval, Coin) {
                                                        
     $scope.channels = [];
@@ -10,7 +10,7 @@ angular.module('UserCtrl', []).controller('UserController',
     $scope.coinTypeToName = Coin.coinTypeToName;
     
     $scope.updateChannels = function() {
-        User.getChannels($routeParams.user_id).then(function(res) {
+        User.getChannels($transition$.params().user_id).then(function(res) {
             if(res.data.success) {
                 $scope.channels = res.data.channels;
             } else {
@@ -22,7 +22,7 @@ angular.module('UserCtrl', []).controller('UserController',
     $scope.updateChannels();
     
     $scope.newChannel = function() {
-        User.newChannel($routeParams.user_id).then(function(res) {
+        User.newChannel($transition$.params().user_id).then(function(res) {
             if(res.data.success) {
                 $scope.fundData = res.data.fundData;
             } else {
@@ -49,7 +49,7 @@ angular.module('UserCtrl', []).controller('UserController',
     $scope.updateTransactions();
     
     $scope.updatePayments = function() {
-        User.getPayments($routeParams.user_id).then(function(res) {
+        User.getPayments($transition$.params().user_id).then(function(res) {
             if(res.data.success) {
                 $scope.payable = res.data.payable;
                 $scope.receivable = res.data.receivable;
@@ -73,8 +73,8 @@ angular.module('UserCtrl', []).controller('UserController',
     $scope.updatePayments();
     
     $scope.newPayment = function() {
-        User.newPayment($routeParams.user_id, $scope.payment).then(function(res) {
-            return $location.path("/users/" + $routeParams.user_id + "/payments/" + res.data.payment._id);
+        User.newPayment($transition$.params().user_id, $scope.payment).then(function(res) {
+            return $location.path("/users/" + $transition$.params().user_id + "/payments/" + res.data.payment._id);
         });
     };
     
@@ -95,7 +95,7 @@ angular.module('UserCtrl', []).controller('UserController',
 .controller('LoginController', function($scope, $http, API, 
                                         User, $location, auth, $cookies) {
     if(auth.isAuthed()) {
-        $location.path("/");
+        $location.path("/users/" + auth.getToken().id);
     }
    
     $scope.login = function() {
@@ -105,7 +105,7 @@ angular.module('UserCtrl', []).controller('UserController',
             if(res.data.success) {
                 var expiry = new Date();
                 expiry.setDate(expiry.getDate() + (1.0/48));
-                $location.path("/");
+                $location.path("/users/" + auth.getToken().id);
             }
         };
         
@@ -131,13 +131,13 @@ angular.module('UserCtrl', []).controller('UserController',
     };
 })
 
-.controller('PaymentController', function($scope, User, $location, $routeParams, $interval) {
+.controller('PaymentController', function($scope, User, $location, $transition$, $interval) {
     $scope.payment = {};
     $scope.timeout = "";
     $scope.paid = false;
     
     $scope.updatePayment = function() {
-        User.getPayment($routeParams.user_id, $routeParams.payment_id).then(function(res) {
+        User.getPayment($transition$.params().user_id, $transition$.params().payment_id).then(function(res) {
             if(!res.data.success) {
                 return $location.path("/");
             }

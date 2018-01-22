@@ -1,29 +1,30 @@
-angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider',
-function($routeProvider, $locationProvider) {
-
-    $routeProvider
-
+angular.module('appRoutes', ['ui.router']).config(
+function($stateProvider, $urlRouterProvider, $locationProvider) {
+        
+    $urlRouterProvider.otherwise('/login');
+        
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+    });
+    
+    $stateProvider
         // home page        
-        .when('/users/:user_id/payments/:payment_id', {
+        .state('pay', {
+            url: '/users/{user_id}/payments/{payment_id}',
             templateUrl: 'views/pay.html',
             controller: 'PaymentController'
         })
 
-        .when('/users/:user_id', {
+        .state('user', {
+            url: '/users/{user_id}',
             templateUrl: 'views/user.html',
             controller: 'UserController'
         })
         
-        .when('/login', {
+        .state('login', {
+            url: '/login',
             templateUrl: 'views/login.html',
             controller: 'LoginController'
-        })
-        
-        .when('/', {
-            templateUrl: 'views/home.html',
-            controller: 'MainController'
         });
-
-    $locationProvider.html5Mode(true);
-
-}]);
+});

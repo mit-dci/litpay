@@ -78,7 +78,11 @@ angular.module('AuthService', [])
     };
     
     this.redirectToAttemptedUrl = function() {
-        $location.path(this.url);
+        if(!angular.isDefined(this.url) || this.url == "/login" || this.url == "/") {
+            return $location.path("/users/" + this.getToken().id);
+        }
+        
+        return $location.path(this.url);
     };
 })
 

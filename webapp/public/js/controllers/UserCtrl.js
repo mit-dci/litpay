@@ -131,7 +131,7 @@ angular.module('UserCtrl', []).controller('UserController',
     };
 })
 
-.controller('PaymentController', function($scope, User, $location, $transition$, $interval) {
+.controller('PaymentController', function($scope, User, $location, $transition$, $interval, Coin) {
     $scope.payment = {};
     $scope.timeout = "";
     $scope.paid = false;
@@ -174,6 +174,8 @@ angular.module('UserCtrl', []).controller('UserController',
             $interval.cancel($scope.timeoutTimer);
         }
     });
+    
+    $scope.coinTypeToName = Coin.coinTypeToName;
     
     $scope.updateTimer = $interval($scope.updatePayment, 5000);
     $scope.timeoutTimer = $interval($scope.updateTimeout, 500);

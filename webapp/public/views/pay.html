@@ -3,7 +3,7 @@
 <strong>Payment ID:</strong> {{ payment.pushData }}<br>
 <strong>Recipient:</strong> {{ payment.to }}<br>
 <strong>Timeout:</strong> {{ timeout }}<br>
-<strong>Balance:</strong> {{ payment.balance }}
+<strong>Balance:</strong> {{ (payment.balance / 100000000) + " " + coinTypeToName(payment.cointype).ticker }}
 </p>
 <div ng-if="paid">
 <h4><strong>Invoice Paid</strong></h4>

@@ -26,6 +26,7 @@ angular.module('AuthService', [])
                     $location.path('/');
                 } else {
                     // Token expired/logged out
+                    auth.saveAttemptUrl();
                     $location.path('/login');
                 }
                 return;
@@ -70,6 +71,14 @@ angular.module('AuthService', [])
         } else {
             return false;
         }
+    };
+    
+    this.saveAttemptUrl = function() {
+        this.url = $location.path();
+    };
+    
+    this.redirectToAttemptedUrl = function() {
+        $location.path(this.url);
     };
 })
 

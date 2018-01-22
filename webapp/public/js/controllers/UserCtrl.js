@@ -105,7 +105,7 @@ angular.module('UserCtrl', []).controller('UserController',
             if(res.data.success) {
                 var expiry = new Date();
                 expiry.setDate(expiry.getDate() + (1.0/48));
-                $location.path("/users/" + auth.getToken().id);
+                auth.redirectToAttemptedUrl();
             }
         };
         

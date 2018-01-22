@@ -3,8 +3,8 @@ angular.module('MainCtrl', []).controller('MainController',
     $scope.auth = auth;
     
     if(!auth.isAuthed()) {
+        auth.saveAttemptUrl();
         $location.path('/login');
     }
     
-    $scope.tagline = "Like BitPay, but more 'lit'";
 });

@@ -111,7 +111,7 @@ function updateOpenChannels(rpc) {
                         // Update latest channel status
                         for(var idc in channels.Channels) {
                             if(Util.toHexString(channels.Channels[idc].Pkh) == openChannels[ido].pkh) {
-                                if(channels.Channels[idc].StateNum == nTxs) {
+                                if(channels.Channels[idc].StateNum >= nTxs) {
                                     var delta = channels.Channels[idc].MyBalance - lastBal;
                                     if(delta != 0) {
                                         var tx = new mongoose.Schema(TxSchema);
